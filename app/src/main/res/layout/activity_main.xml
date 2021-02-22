@@ -20,13 +20,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:backgroundTint="@color/black">
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
+            android:id="@+id/originalImage"
             android:layout_width="0dp"
             android:layout_height="240dp"
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"/>
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
+            android:id="@+id/compressedImage"
             android:layout_width="0dp"
             android:layout_height="240dp"
             android:layout_marginStart="6dp"
@@ -39,6 +41,7 @@
         android:orientation="horizontal"
         android:padding="6dp">
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/chooseButton"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -46,6 +49,7 @@
             android:layout_marginEnd="10dp"
             android:text="@string/choose_image"/>
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/compressButton"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -56,8 +60,7 @@
 
 
     </LinearLayout>
-    
-    
+
 </LinearLayout>
 
 
