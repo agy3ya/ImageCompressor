@@ -23,14 +23,17 @@ import com.iceteck.silicompressorr.SiliCompressor;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppCompatButton chooseButton;
     private AppCompatButton compressButton;
+    private AppCompatButton shareButton;
     private ImageView originalImage;
     private ImageView compressedImage;
-    private TextView textView;
+    private TextView originalTextView;
+    private TextView compressedTextView;
     private static final int PICK_IMAGE = 1;
     Uri imageUri;
     private Bitmap bitmap;
@@ -48,12 +51,15 @@ public class MainActivity extends AppCompatActivity {
         chooseButton = findViewById(R.id.chooseButton);
         compressedImage = findViewById(R.id.compressedImage);
         compressButton = findViewById(R.id.compressButton);
-        textView = findViewById(R.id.test);
+        originalTextView =findViewById(R.id.originalTextView);
+        compressedTextView=findViewById(R.id.compressedTextView);
+        compressButton.setEnabled(false);
         setupClickListener();
 
     }
 
     private void setupClickListener() {
+
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,14 +70,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         compressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageBitmap = Compressor.reduceBitmapSize(bitmap,307200);
-                compressedImage.setImageBitmap(imageBitmap);
-                int compressedHeight = imageBitmap.getHeight();
-                textView.setText(String.valueOf(compressedHeight));
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    imageBitmap = Compressor.reduceBitmapSize(bitmap, 307200);
+                    compressedImage.setImageBitmap(imageBitmap);
+                    String resolution = calculateResolution(imageBitmap);
+                    compressedTextView.setText(resolution);
+                }
+            });
+
      }
         @Override
         protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
@@ -81,10 +88,18 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                     originalImage.setImageBitmap(bitmap);
-
+                    compressButton.setEnabled(true);
+                    String resolution = calculateResolution(bitmap);
+                    originalTextView.setText(resolution);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        private String calculateResolution(Bitmap bitmap){
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            return String.valueOf(width) + "x" + String.valueOf(height);
+        }
+
     }

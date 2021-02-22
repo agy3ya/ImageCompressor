@@ -15,6 +15,40 @@
     android:backgroundTint="@color/black"
     android:layout_gravity="center"
     android:padding="6dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:gravity="center"
+            android:id="@+id/originalTextView"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/size"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_weight="1"
+            android:padding="6dp"
+            android:textSize="16sp"/>
+        <TextView
+            android:gravity="center"
+            android:id="@+id/compressedTextView"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/size"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+
+
+
+    </LinearLayout>
    
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,14 +95,13 @@
 
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/test"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="android"
-        android:textSize="12sp"/>
 
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/shareButton"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:text="@string/share"
+    android:layout_gravity="center"/>
 </LinearLayout>
 
 
