@@ -15,23 +15,60 @@
     android:backgroundTint="@color/black"
     android:layout_gravity="center"
     android:padding="6dp">
+
+   <com.google.android.material.card.MaterialCardView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="2dp"
+       app:cardBackgroundColor="@color/cardview_light_background"
+       app:cardElevation="2dp">
+
+       <LinearLayout
+           android:layout_margin="6dp"
+           android:layout_width="match_parent"
+           android:layout_height="240dp"
+           android:orientation="horizontal"
+           android:backgroundTint="@color/black">
+           <ImageView
+               android:id="@+id/originalImage"
+               android:layout_width="0dp"
+               android:layout_height="240dp"
+               android:layout_marginEnd="6dp"
+               android:layout_weight="1"
+               android:adjustViewBounds="true"/>
+           <ImageView
+               android:id="@+id/compressedImage"
+               android:layout_width="0dp"
+               android:layout_height="240dp"
+               android:layout_marginStart="6dp"
+               android:layout_weight="1"
+               android:adjustViewBounds="true"/>
+       </LinearLayout>
+
+
+
+
+
+   </com.google.android.material.card.MaterialCardView>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
         <TextView
             android:gravity="center"
             android:id="@+id/originalTextView"
             android:layout_gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/size"
+            android:text="@string/resolution"
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
             android:layout_weight="1"
             android:padding="6dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textAppearance="?attr/textAppearanceHeadline1"/>
         <TextView
             android:gravity="center"
             android:id="@+id/compressedTextView"
@@ -39,41 +76,22 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/size"
+            android:text="@string/resolution"
             android:textSize="16sp"
             android:padding="6dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:textAppearance="?attr/textAppearanceHeadline1"/>
 
 
 
 
     </LinearLayout>
-   
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:backgroundTint="@color/black">
-        <ImageView
-            android:id="@+id/originalImage"
-            android:layout_width="0dp"
-            android:layout_height="240dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"/>
-        <ImageView
-            android:id="@+id/compressedImage"
-            android:layout_width="0dp"
-            android:layout_height="240dp"
-            android:layout_marginStart="6dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
         android:padding="6dp">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/chooseButton"
@@ -97,6 +115,7 @@
     </LinearLayout>
 
 <androidx.appcompat.widget.AppCompatButton
+    android:layout_marginTop="50dp"
     android:id="@+id/shareButton"
     android:layout_width="wrap_content"
     android:layout_height="50dp"

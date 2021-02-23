@@ -1,4 +1,4 @@
-package com.example.imagecompressor;
+package com.agy3ya.imagecompressor;
 
 import android.graphics.Bitmap;
 import android.util.Log;

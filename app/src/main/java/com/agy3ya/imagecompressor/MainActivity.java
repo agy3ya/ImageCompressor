@@ -1,32 +1,30 @@
-package com.example.imagecompressor;
+package com.agy3ya.imagecompressor;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.iceteck.silicompressorr.FileUtils;
-import com.iceteck.silicompressorr.SiliCompressor;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "SEND";
     private AppCompatButton chooseButton;
     private AppCompatButton compressButton;
     private AppCompatButton shareButton;
@@ -51,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
         chooseButton = findViewById(R.id.chooseButton);
         compressedImage = findViewById(R.id.compressedImage);
         compressButton = findViewById(R.id.compressButton);
+        shareButton = findViewById(R.id.shareButton);
         originalTextView =findViewById(R.id.originalTextView);
         compressedTextView=findViewById(R.id.compressedTextView);
         compressButton.setEnabled(false);
+        shareButton.setEnabled(false);
         setupClickListener();
 
     }
@@ -76,11 +76,42 @@ public class MainActivity extends AppCompatActivity {
                     compressedImage.setImageBitmap(imageBitmap);
                     String resolution = calculateResolution(imageBitmap);
                     compressedTextView.setText(resolution);
+                    shareButton.setEnabled(true);
                 }
             });
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Uri myuri = bitmapToUri(imageBitmap);
+               Intent intent = new Intent(Intent.ACTION_SEND);
+               intent.putExtra(Intent.EXTRA_STREAM,myuri);
+               intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+               intent.setType("image/*");
+               startActivity(intent);
+            }
+        });
 
      }
-        @Override
+
+    private Uri bitmapToUri(Bitmap bitmap) {
+        File imagesFolder = new File(getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imagesFolder.mkdirs();
+            File file = new File(imagesFolder, "shared_image.png");
+            FileOutputStream stream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.flush();
+            stream.close();
+            uri = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),BuildConfig.APPLICATION_ID + ".provider",file);
+
+        } catch (IOException e) {
+            Log.d(TAG, "execpetion while sharing the file :" + e.getMessage());
+        }
+        return uri;
+    }
+
+    @Override
         protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
             super.onActivityResult(requestCode, resultCode, data);
             if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
@@ -101,5 +132,7 @@ public class MainActivity extends AppCompatActivity {
             int height = bitmap.getHeight();
             return String.valueOf(width) + "x" + String.valueOf(height);
         }
+
+
 
     }
